@@ -1,8 +1,11 @@
-﻿@*@model UserCredits*@
+﻿@model UserCredits
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
 <div class="text-center">
-    <h1 class="display-4">Your credits are : </h1>
+    <h1 class="display-4">Your credits are : @Model.Credits</h1>
 </div>

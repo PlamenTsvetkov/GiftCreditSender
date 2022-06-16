@@ -25,14 +25,15 @@
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
-            
-    //        if (this.User.Id() == null)
-    //        {
-    //            return RedirectToAction("Account", "Login", new { area = "Identity" });
-    //}
-    //        string userId = this.User.Id();
-    //        var credits =usersService.GetUserCreditsById<UserCredits>(userId);
-            return View();
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+
+            string userId = this.User.Id();
+            var credits = usersService.GetUsersCreditsById<UserCredits>(userId);
+            return View(credits);
         }
 
 

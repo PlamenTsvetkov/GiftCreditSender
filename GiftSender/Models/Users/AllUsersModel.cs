@@ -1,8 +1,9 @@
 ﻿namespace GiftSender.Models.Users
 {
-    public class UserCredits
+    public class AllUsersModel
     {
         public string Id { get; init; }
-        public double Credits { get; init; }
+
+        public string MobileNumber { get; init; }
     }
 }

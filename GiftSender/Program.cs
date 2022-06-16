@@ -1,6 +1,7 @@
 using GiftSender.Data;
 using GiftSender.Data.Models;
 using GiftSender.Infrastructure.Extensions;
+using GiftSender.Services.Transactions;
 using GiftSender.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddTransient<ITransactionsService, TransactionsService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

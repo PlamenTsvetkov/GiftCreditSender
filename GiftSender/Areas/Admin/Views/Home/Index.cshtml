@@ -1,4 +1,5 @@
-﻿
+﻿@model IndexAdminViewModel
+
 
 @{
     ViewBag.Title = "Admin Index Page";
@@ -16,7 +17,7 @@
 
         <div class="small-box bg-info">
             <div class="inner">
-                <h3></h3>
+                <h3>@Model.UsersNumber</h3>
                 <p>User Registrations</p>
             </div>
            <div class="icon">
@@ -30,7 +31,7 @@
 
         <div class="small-box bg-success">
             <div class="inner">
-               <h3></h3>
+               <h3>@Model.TransactionsNumber</h3>
                 <p>Transactions</p>
             </div>
             <div class="icon">
