@@ -1,0 +1,42 @@
+﻿@model UsersListViewModel
+
+@{
+    ViewBag.Title = "All Users";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
+<h1 class="heading-margin text-center">@ViewBag.Title</h1>
+
+<table class="table table-striped">
+
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile Number</th>
+            <th scope="col">Credits</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td scope="col">@user.Id</td>
+                <td scope="col">@user.Name</td>
+                <td scope="col">@user.Email</td>
+                <td scope="col">@user.MobileNumber</td>
+                <td scope="col">@user.Credits</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<hr />
+
+<partial name="_PagingPartial" model="@Model" />
