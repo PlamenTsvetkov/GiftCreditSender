@@ -1,21 +1,19 @@
 ﻿namespace GiftSender.Controllers
 {
-    using GiftSender.Infrastructure.Extensions;
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
+
     using GiftSender.Models;
     using GiftSender.Models.Users;
     using GiftSender.Services.Users;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Diagnostics;
+    using GiftSender.Infrastructure.Extensions;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUsersService usersService;
 
-        public HomeController(ILogger<HomeController> logger,
-            IUsersService usersService)
+        public HomeController(IUsersService usersService)
         {
-            _logger = logger;
             this.usersService = usersService;
         }
 
@@ -29,7 +27,6 @@
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
-
 
             string userId = this.User.Id();
             var credits = usersService.GetUsersCreditsById<UserCredits>(userId);

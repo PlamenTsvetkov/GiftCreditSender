@@ -1,8 +1,9 @@
 ﻿namespace GiftSender.Areas.Admin.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using GiftSender.Models.Transactions;
     using GiftSender.Services.Transactions;
-    using Microsoft.AspNetCore.Mvc;
 
     using static AdminConstants;
     public class TransactionsController : AdminController

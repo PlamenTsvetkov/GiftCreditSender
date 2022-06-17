@@ -6,6 +6,13 @@
 {
     <div class="alert alert-success">@this.TempData["Message"]</div>
 }
-<div class="text-center">
-    <h1 class="display-4">Your credits are : @Model.Credits</h1>
+
+<div class="jumbotron">
+    <h1 class="display-4">Hello, @Model.Name!</h1>
+    <p class="lead">This is a simple WEB based system for sending of gifts in the form of online credits.</p>
+    <hr class="my-4">
+    <p>You have @Model.Credits credits. If you want to send credits to a user.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Transactions" asp-action="Create" role="button">Click here!</a>
+    </p>
 </div>

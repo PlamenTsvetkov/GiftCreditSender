@@ -1,9 +1,10 @@
 ﻿namespace GiftSender.Areas.Admin.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using GiftSender.Services.Transactions;
     using GiftSender.Services.Users;
     using GiftSender.Models.Home;
-    using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : AdminController
     {

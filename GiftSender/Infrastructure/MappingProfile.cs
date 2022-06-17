@@ -1,6 +1,7 @@
 ﻿namespace GiftSender.Infrastructure
 {
     using AutoMapper;
+
     using GiftSender.Data.Models;
     using GiftSender.Models.Transactions;
     using GiftSender.Models.Users;
@@ -12,6 +13,7 @@
             this.CreateMap<ApplicationUser, UserInListViewModel>();
             this.CreateMap<ApplicationUser, UserCredits>();
             this.CreateMap<ApplicationUser, AllUsersModel>();
+
             this.CreateMap<Transaction, TransactionInListViewModel>();
         }
     }

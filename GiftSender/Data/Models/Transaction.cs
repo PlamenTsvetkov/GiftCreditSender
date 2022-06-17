@@ -10,6 +10,7 @@
             this.Id = Guid.NewGuid().ToString();
             this.CreatedOn = DateTime.UtcNow;
         }
+
         [Key]
         [Required]
         public string Id { get; init; }

@@ -1,18 +1,19 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 using GiftSender.Data;
 using GiftSender.Data.Models;
 using GiftSender.Infrastructure.Extensions;
 using GiftSender.Services.Transactions;
 using GiftSender.Services.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));;
+                    options.UseSqlServer(connectionString));;
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
@@ -37,6 +38,7 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
+
 builder.Services.AddTransient<IUsersService, UsersService>();
 builder.Services.AddTransient<ITransactionsService, TransactionsService>();
 

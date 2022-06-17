@@ -17,9 +17,5 @@
         IEnumerable<T> GetAll<T>(int? count = null);
 
         bool UserExists(string receiverId);
-
-        //IEnumerable<T> GetAllReceiveTransactionWithPaging<T>(string userId, int page, int itemsPerPage = 12);
-
-        int GetCountToReceiveTransaction(string userId);
     }
 }

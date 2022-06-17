@@ -1,8 +1,9 @@
 ﻿namespace GiftSender.Areas.Admin.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using GiftSender.Models.Users;
     using GiftSender.Services.Users;
-    using Microsoft.AspNetCore.Mvc;
 
     using static AdminConstants;
     public class UsersController : AdminController

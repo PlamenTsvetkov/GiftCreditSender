@@ -10,6 +10,9 @@
 
         int GetCount();
 
+        IEnumerable<T> GetAllReceiveTransactionsByUserId<T>(string receiverId);
+
+        IEnumerable<T> GetAllSendTransactionsByUserId<T>(string senderId);
     }
 }
 

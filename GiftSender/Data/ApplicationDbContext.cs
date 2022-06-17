@@ -1,8 +1,9 @@
 ﻿namespace GiftSender.Data
 {
-    using GiftSender.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using GiftSender.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -28,6 +29,7 @@
                 .HasForeignKey(g => g.SenderId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
+
             base.OnModelCreating(modelBuilder);
         }
     }

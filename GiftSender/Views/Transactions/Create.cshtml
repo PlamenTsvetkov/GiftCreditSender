@@ -11,11 +11,11 @@
         <form method="post">
 
             <div class="form-group">
-                <label asp-for="ReceiverId"></label>
+                <label asp-for="ReceiverId">Send to</label>
                 <select asp-for="ReceiverId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                     @foreach (var user in Model.Users)
                     {
-                        <option value="@user.Id">@user.MobileNumber</option>
+                        <option value="@user.Id">@user.MobileNumber / @user.Name</option>
                     }
                 </select>
             </div>

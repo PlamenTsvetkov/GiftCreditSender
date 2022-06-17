@@ -1,15 +1,15 @@
 ﻿namespace GiftSender.Infrastructure.Extensions
 {
-    using GiftSender.Data;
-    using GiftSender.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
+    using GiftSender.Data;
+    using GiftSender.Data.Models;
 
     using static GiftSender.Areas.Admin.AdminConstants;
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder PrepareDatabase(
-            this IApplicationBuilder app)
+        public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             var services = serviceScope.ServiceProvider;

@@ -1,12 +1,13 @@
 ﻿namespace GiftSender.Services.Transactions
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+
     using GiftSender.Data;
     using GiftSender.Data.Models;
     using GiftSender.Services.Users;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public class TransactionsService : ITransactionsService
     {
@@ -40,10 +41,32 @@
             await this.db.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAllReceiveTransactionsByUserId<T>(string receiverId)
+        {
+            var receiveTransactions = this.db.Transactions
+                .Where(t => t.ReceiverId == receiverId)
+                         .OrderByDescending(x => x.CreatedOn)
+                         .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                         .ToList();
+
+            return receiveTransactions;
+        }
+
+        public IEnumerable<T> GetAllSendTransactionsByUserId<T>(string senderId)
+        {
+            var sendTransactions = this.db.Transactions
+                .Where(t => t.SenderId == senderId)
+                         .OrderByDescending(x => x.CreatedOn)
+                         .ProjectTo<T>(this.mapper.ConfigurationProvider)
+                         .ToList();
+
+            return sendTransactions;
+        }
+
         public IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12)
         {
             var transactions = this.db.Transactions
-                         .OrderByDescending(x => x.Id)
+                         .OrderByDescending(x => x.CreatedOn)
                          .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                          .ProjectTo<T>(this.mapper.ConfigurationProvider)
                          .ToList();
@@ -59,5 +82,7 @@
         {
             return senderCredits >= sendCredits;
         }
+
+
     }
 }

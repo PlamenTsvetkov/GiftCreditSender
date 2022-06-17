@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants.ApplicationUser;
+
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
@@ -11,11 +12,12 @@
             this.IncomingTransactions = new HashSet<Transaction>();
             this.OutcomingTransactions = new HashSet<Transaction>();
         }
-        [Reguired]
+
+        [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        [Reguired]
+        [Required]
         [MaxLength(MobileNumberMaxLength)]
         public string MobileNumber { get; set; }
 

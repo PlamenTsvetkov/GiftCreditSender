@@ -1,14 +1,14 @@
 ﻿namespace GiftSender.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using GiftSender.Infrastructure.Extensions;
     using GiftSender.Models.Transactions;
     using GiftSender.Models.Users;
     using GiftSender.Services.Transactions;
     using GiftSender.Services.Users;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
-    using static Areas.Admin.AdminConstants;
     public class TransactionsController : Controller
     {
         private readonly IUsersService usersService;
@@ -35,7 +35,7 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(TransactionFormModel transaction)
+        public async Task<IActionResult> Create(TransactionFormModel transaction)
         {
             if (!this.usersService.UserExists(transaction.ReceiverId))
             {
@@ -65,31 +65,24 @@
                 });
             }
 
-            this.transactionsService.Create(userId, transaction.ReceiverId, transaction.Massage, transaction.Credits);
+            await this.transactionsService.Create(userId, transaction.ReceiverId, transaction.Massage, transaction.Credits);
 
             this.TempData["Message"] = "Тhe transaction is completed.";
 
             return this.RedirectToAction("Index", "Home");
         }
-        //[Authorize]
-        //public IActionResult Info(int id = 1)
-        //{
+        [Authorize]
+        public IActionResult Info()
+        {
+            var userId = this.User.Id();
+            var viewModel = new TransactionsListViewModelWithoutPaging
+            {
+                UserCredits = usersService.GetUsersCreditsById<UserCredits>(userId),
+                IncomingTransactions = this.transactionsService.GetAllReceiveTransactionsByUserId<TransactionInListViewModel>(userId),
+                OutcomingTransactions = this.transactionsService.GetAllSendTransactionsByUserId<TransactionInListViewModel>(userId),
+            };
+            return this.View(viewModel);
 
-        //    if (id <= 0)
-        //    {
-        //        return this.NotFound();
-        //    }
-        //    var userId = this.User.Id();
-        //    var viewModel = new TransactionsListViewModel
-        //    {
-        //        ItemsPerPage = ItemsPerPage,
-        //        PageNumber = id,
-        //        ItemsCount = this.usersService.GetCountToReceiveTransaction(userId),
-        //        Transactions = this.usersService.GetAllReceiveTransactionWithPaging<TransactionInListViewModel>(userId,id, ItemsPerPage),
-        //        Action = nameof(Info),
-        //    };
-        //    return this.View(viewModel);
-
-        //}
+        }
     }
 }
