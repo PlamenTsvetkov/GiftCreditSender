@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
-        <h4 class="heading-margin text-center">Your credits are : @Model.CurrentCredits</h4>
+        <h4 class="heading-margin text-center">You have @Model.CurrentCredits credits.</h4>
         <div asp-validation-summary="All" class="text-danger"></div>
         <form method="post">
 
@@ -31,12 +31,16 @@
                 <input asp-for="Massage" class="form-control" />
                 <span asp-validation-for="Massage" class="text-danger"></span>
             </div>
+            	<br>
 
-            <input class="btn btn-primary mt-3" type="submit" value="Sent" />
+             <div class="text-center">
+                <button type="submit" class="btn btn-success">  <i class="fa-solid fa-arrow-up-right-from-square"></i> Send</button>
+            </div>
 
         </form>
     </div>
 </div>
+
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }
