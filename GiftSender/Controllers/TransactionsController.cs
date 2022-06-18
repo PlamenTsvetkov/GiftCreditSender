@@ -9,6 +9,7 @@
     using GiftSender.Services.Users;
     using Microsoft.AspNetCore.Authorization;
 
+    using static Areas.Admin.AdminConstants;
     public class TransactionsController : Controller
     {
         private readonly IUsersService usersService;
@@ -72,14 +73,22 @@
             return this.RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public IActionResult Info()
+        public IActionResult Info(int id = 1)
         {
-            var userId = this.User.Id();
-            var viewModel = new TransactionsListViewModelWithoutPaging
+            if (id <= 0)
             {
-                UserCredits = usersService.GetUsersCreditsById<UserCredits>(userId),
-                IncomingTransactions = this.transactionsService.GetAllReceiveTransactionsByUserId<TransactionInListViewModel>(userId),
-                OutcomingTransactions = this.transactionsService.GetAllSendTransactionsByUserId<TransactionInListViewModel>(userId),
+                return this.NotFound();
+            }
+
+            var userId = this.User.Id();
+            var viewModel = new TransactionsListUserInfo
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.transactionsService.GetTransactionsCountByUserId(userId),
+                UserCredits = this.usersService.GetUsersCreditsById<UserCredits>(userId),
+                Transactions = this.transactionsService.GetAllTransactionsByUserId<TransactionDTO>(userId, id, ItemsPerPage),
+                Action = nameof(Info),
             };
             return this.View(viewModel);
 

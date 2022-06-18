@@ -41,26 +41,17 @@
             await this.db.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllReceiveTransactionsByUserId<T>(string receiverId)
+
+        public IEnumerable<T> GetAllTransactionsByUserId<T>(string userId, int page, int itemsPerPage = 12)
         {
-            var receiveTransactions = this.db.Transactions
-                .Where(t => t.ReceiverId == receiverId)
+            var transactions = this.db.Transactions
+                .Where(t => t.SenderId == userId || t.ReceiverId==userId)
                          .OrderByDescending(x => x.CreatedOn)
+                         .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                          .ProjectTo<T>(this.mapper.ConfigurationProvider)
                          .ToList();
 
-            return receiveTransactions;
-        }
-
-        public IEnumerable<T> GetAllSendTransactionsByUserId<T>(string senderId)
-        {
-            var sendTransactions = this.db.Transactions
-                .Where(t => t.SenderId == senderId)
-                         .OrderByDescending(x => x.CreatedOn)
-                         .ProjectTo<T>(this.mapper.ConfigurationProvider)
-                         .ToList();
-
-            return sendTransactions;
+            return transactions;
         }
 
         public IEnumerable<T> GetAllWithPaging<T>(int page, int itemsPerPage = 12)
@@ -76,6 +67,15 @@
         public int GetCount()
         {
             return this.db.Transactions.Count();
+        }
+
+        public int GetTransactionsCountByUserId(string userId)
+        {
+            var count = this.db.Transactions
+               .Where(t => t.SenderId == userId || t.ReceiverId == userId)
+                        .Count();
+
+            return count;
         }
 
         public bool IsPossibleTransaction(double senderCredits, double sendCredits)

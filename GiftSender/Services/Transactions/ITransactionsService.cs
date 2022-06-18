@@ -10,9 +10,9 @@
 
         int GetCount();
 
-        IEnumerable<T> GetAllReceiveTransactionsByUserId<T>(string receiverId);
+        IEnumerable<T> GetAllTransactionsByUserId<T>(string userId, int page, int itemsPerPage = 12);
 
-        IEnumerable<T> GetAllSendTransactionsByUserId<T>(string senderId);
+        int GetTransactionsCountByUserId(string userId);
     }
 }
 

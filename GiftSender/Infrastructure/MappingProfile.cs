@@ -15,6 +15,7 @@
             this.CreateMap<ApplicationUser, AllUsersModel>();
 
             this.CreateMap<Transaction, TransactionInListViewModel>();
+            this.CreateMap<Transaction, TransactionDTO>();
         }
     }
 }
